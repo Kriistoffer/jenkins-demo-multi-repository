@@ -8,15 +8,18 @@ pipeline {
         node_repositories = "https://github.com/Kriistoffer/jenkins-demo,https://github.com/Kriistoffer/jenkins-demo-2"
         dotnet_projects = ""
     }
+    stages {
         stage("Clone all repositories") {
             steps {
                 script {
-                    echo "Cloning repositories..."
 
-                    node_repositories.tokenize(",").each { repository ->
-                        echo "Test"
+                    env.node_repositories.tokenize(",").each { repository -> 
+                        echo "${repository.subString(${repository.lastIndexOf("/")} + 1, ${repository.length()})}"
                     }
 
+
+
+                    // echo "Cloning repositories..."
                     // env.node_repositories.tokenize(",").each { repository ->
                     //     echo "Cloning ${repository} now..."
                     //     sh "mkdir -p ${repository}"
@@ -85,4 +88,5 @@ pipeline {
             // cleanWs()
             echo "Finished running."
         }
+    }
 }
