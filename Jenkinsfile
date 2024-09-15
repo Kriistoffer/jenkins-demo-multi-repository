@@ -14,7 +14,7 @@ pipeline {
                     echo "Cloning repositories..."
 
                     node_repositories.tokenize(",").each { repository ->
-                        echo "${repository.subString(${repository}.lastIndexOf("/") + 1, ${repository}.length()))}"
+                        echo "${repository.subString(${repository}.lastIndexOf("/") + 1, ${repository}.length())}"
                     }
 
                     // env.node_repositories.tokenize(",").each { repository ->
