@@ -14,7 +14,7 @@ pipeline {
                 script {
 
                     env.node_repositories.tokenize(",").each { repository -> 
-                        echo "${repository.subString(${repository.lastIndexOf("/")} + 1, ${repository.length()})}"
+                        echo "${repository}"
                     }
 
 
