@@ -10,12 +10,15 @@ pipeline {
     }
     stages {
         stage("Test") {
-        script {
-            env.node_repositories.tokenize(",").each { repo -> 
-                sh "git clone ${repo}"
+            steps {
+                script {
+                    env.node_repositories.tokenize(",").each { repo -> 
+                        sh "git clone ${repo}"
+                    }
                 }
-            }   
+            }
         }
+
         // stage("Clone all repositories") {
         //     steps {
         //         script {
