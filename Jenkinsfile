@@ -85,6 +85,4 @@ pipeline {
             // cleanWs()
             echo "Finished running."
         }
-    }
-
 }
