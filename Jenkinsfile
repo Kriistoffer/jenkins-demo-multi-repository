@@ -14,7 +14,7 @@ pipeline {
                 script {
 
                     env.node_repositories.tokenize(",").each { repository -> 
-                        echo "${repository}"
+                        echo "${repository.split(30)}"
                     }
 
 
