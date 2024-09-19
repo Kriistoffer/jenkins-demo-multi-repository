@@ -6,6 +6,7 @@ pipeline {
     }
     environment {
         node_repositories = "https://github.com/Kriistoffer/jenkins-demo,https://github.com/Kriistoffer/jenkins-demo-2"
+        node_repoNames = "jenkins-demo,jenkins-demo-2"
         dotnet_projects = ""
     }
     stages {
@@ -38,22 +39,22 @@ pipeline {
                 echo "Auditing and checking dependency versions..."
                 script {
                     sh "mkdir -p ${WORKSPACE}/logs/${BUILD_NUMBER}"
-                    env.node_repositories.tokenize(",").each { repository ->
-                        echo "Checking ${repository}..."
-                        def repoName = repository.split('Kriistoffer/')
+                    env.node_repoNames.tokenize(",").each { repoName ->
+                        echo "Checking ${repoName}..."
+                        // def repoName = repository.split('Kriistoffer/')
 
-                        dir("${repoName[1]}") {
-                            sh "npm outdated --json > ${WORKSPACE}/logs/${BUILD_NUMBER}/${repoName[1]}_outdated_dependencies.json || true"
-                            def outdated_output = readJSON(file: "${WORKSPACE}/logs/${BUILD_NUMBER}/${repoName[1]}_outdated_dependencies.json")
+                        dir("${repoName}") {
+                            sh "npm outdated --json > ${WORKSPACE}/logs/${BUILD_NUMBER}/${repoName}_outdated_dependencies.json || true"
+                            def outdated_output = readJSON(file: "${WORKSPACE}/logs/${BUILD_NUMBER}/${repoName}_outdated_dependencies.json")
 
                             //Format testing
-                            // sh "npm outdated > ${WORKSPACE}/logs/${BUILD_NUMBER}/${repoName[1]}_outdated_dependencies.txt || true"
-                            // sh "npm audit > ${WORKSPACE}/logs/${BUILD_NUMBER}/${repoName[1]}_vulnerabilities.txt || true"
+                            // sh "npm outdated > ${WORKSPACE}/logs/${BUILD_NUMBER}/${repoName}_outdated_dependencies.txt || true"
+                            // sh "npm audit > ${WORKSPACE}/logs/${BUILD_NUMBER}/${repoName}_vulnerabilities.txt || true"
                             
-                            sh "npm audit --json > ${WORKSPACE}/logs/${BUILD_NUMBER}/${repoName[1]}_vulnerabilities.json || true"
-                            def audit_output = readJSON(file: "${WORKSPACE}/logs/${BUILD_NUMBER}/${repoName[1]}_vulnerabilities.json")
+                            sh "npm audit --json > ${WORKSPACE}/logs/${BUILD_NUMBER}/${repoName}_vulnerabilities.json || true"
+                            def audit_output = readJSON(file: "${WORKSPACE}/logs/${BUILD_NUMBER}/${repoName}_vulnerabilities.json")
 
-                            slackSend(channel: "#team2-dependency_check", message: "- ${repoName[1]} - Outdated dependencies: ${outdated_output.size()}. Vulnerabilities found: ${audit_output.metadata.vulnerabilities.total}")
+                            slackSend(channel: "#team2-dependency_check", message: "- ${repoName} - Outdated dependencies: ${outdated_output.size()}. Vulnerabilities found: ${audit_output.metadata.vulnerabilities.total}")
                         }
                     }
                 }
