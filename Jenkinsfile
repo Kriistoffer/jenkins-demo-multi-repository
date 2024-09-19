@@ -53,7 +53,7 @@ pipeline {
                             sh "npm audit --json > ${WORKSPACE}/logs/${BUILD_NUMBER}/${repoName[1]}_vulnerabilities.json || true"
                             def audit_output = readJSON(file: "${WORKSPACE}/logs/${BUILD_NUMBER}/${repoName[1]}_vulnerabilities.json")
 
-                            slackSend(channel: "#team1-dependency_check", message: "- ${repoName[1]} - Outdated dependencies: ${outdated_output.size()}. Vulnerabilities found: ${audit_output.metadata.vulnerabilities.total}")
+                            slackSend(channel: "#team2-dependency_check", message: "- ${repoName[1]} - Outdated dependencies: ${outdated_output.size()}. Vulnerabilities found: ${audit_output.metadata.vulnerabilities.total}")
                         }
                     }
                 }
