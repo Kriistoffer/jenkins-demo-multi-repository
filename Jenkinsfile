@@ -24,14 +24,14 @@ pipeline {
                 script {
                     echo "Installing..."
                     env.node_repositories.tokenize(",").each { repository ->
-                        def trimURL = {
-                            repository.startsWith('https://github.com/Kriistoffer/') ? repository - 'https://github.com/Kriistoffer/' : repository
-                        }
-                        echo "Installing ${repository} now..."
-                        dir("${repository}") {
-                            sh "npm install"
-                        }
-                        echo "Finished installing ${repository}."
+                        def repoName[] = repository.split('Kriistoffer/')
+                        echo "${repository}"
+                       
+                        // echo "Installing ${repository} now..."
+                        // dir("${repository}") {
+                        //     sh "npm install"
+                        // }
+                        // echo "Finished installing ${repository}."
                     }
                 }
             }
