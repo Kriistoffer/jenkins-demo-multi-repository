@@ -14,7 +14,8 @@ pipeline {
                 script {
 
                     env.node_repositories.tokenize(",").each { repository -> 
-                        echo "${repository.subString(lastIndexOf("/") + 1)}"
+                        sh "git clone ${repository}"
+                        echo "Finished cloning ${repository}"
                     }
 
 
