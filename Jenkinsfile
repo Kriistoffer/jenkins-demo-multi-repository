@@ -24,7 +24,7 @@ pipeline {
                 script {
                     echo "Installing..."
                     env.node_repositories.tokenize(",").each { repository ->
-                        def repoName[] = repository.split('Kriistoffer/')
+                        def repoName = repository.split('Kriistoffer/')
                         echo "${repository}"
                        
                         // echo "Installing ${repository} now..."
