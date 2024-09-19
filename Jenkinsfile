@@ -25,7 +25,7 @@ pipeline {
                     echo "Installing..."
                     env.node_repositories.tokenize(",").each { repository ->
                         def repoName = repository.split('Kriistoffer/')
-                        echo "${repoName}"
+                        echo "${repoName[1]}"
                         // dir("${repoName}") {
                         //     sh "npm install"
                         //     echo "Finished installing ${repoName}."
