@@ -27,43 +27,38 @@ pipeline {
                         def repoName = repository.split('Kriistoffer/')
                         dir("${repoName[1]}") {
                             sh "npm install"
-                            echo "Finished installing ${repoName}."
+                            echo "Finished installing ${repoName[1]}."
                         }
-                       
-                        // echo "Installing ${repository} now..."
-                        // dir("${repository}") {
-                        //     sh "npm install"
-                        // }
-                        // echo "Finished installing ${repository}."
                     }
                 }
             }
         }
-        // stage("Node: version and audit check") {
-        //     steps {
-        //         echo "Auditing and checking dependency versions..."
-        //         sh "mkdir -p logs/${BUILD_NUMBER}"
-        //         script {
-        //             env.node_repositories.tokenize(",").each { repository ->
-        //                 echo "Checking ${repository}..."
+        stage("Node: version and audit check") {
+            steps {
+                echo "Auditing and checking dependency versions..."
+                script {
+                    sh "mkdir -p ${WORKSPACE}/logs/${BUILD_NUMBER}"
+                    env.node_repositories.tokenize(",").each { repository ->
+                        echo "Checking ${repository}..."
+                        def repoName = repository.split('Kriistoffer/')
 
-        //                 dir("${repository}") {
-        //                     sh "npm outdated --json > ../logs/${BUILD_NUMBER}/${repository}_outdated_dependencies.json || true"
-        //                     def outdated_output = readJSON(file: "../logs/${BUILD_NUMBER}/${repository}_outdated_dependencies.json")
+                        dir("${repoName[1]}") {
+                            sh "npm outdated --json > ${WORKSPACE}/logs/${BUILD_NUMBER}/${repoName[1]}_outdated_dependencies.json || true"
+                            def outdated_output = readJSON(file: "${WORKSPACE}/logs/${BUILD_NUMBER}/${repoName[1]}_outdated_dependencies.json")
 
-        //                     //Format testing
-        //                     // sh "npm outdated > ../logs/${BUILD_NUMBER}/${repository}_outdated_dependencies.txt || true"
-        //                     // sh "npm audit > ../logs/${BUILD_NUMBER}/${repository}_vulnerabilities.txt || true"
+                            //Format testing
+                            // sh "npm outdated > ${WORKSPACE}/logs/${BUILD_NUMBER}/${repoName[1]}_outdated_dependencies.txt || true"
+                            // sh "npm audit > ${WORKSPACE}/logs/${BUILD_NUMBER}/${repoName[1]}_vulnerabilities.txt || true"
                             
-        //                     sh "npm audit --json > ../logs/${BUILD_NUMBER}/${repository}_vulnerabilities.json || true"
-        //                     def audit_output = readJSON(file: "../logs/${BUILD_NUMBER}/${repository}_vulnerabilities.json")
+                            sh "npm audit --json > ${WORKSPACE}/logs/${BUILD_NUMBER}/${repoName[1]}_vulnerabilities.json || true"
+                            def audit_output = readJSON(file: "${WORKSPACE}/logs/${BUILD_NUMBER}/${repoName[1]}_vulnerabilities.json")
 
-        //                     slackSend(channel: "#team1-dependency_check", message: "- ${repository} - Outdated dependencies: ${outdated_output.size()}. Vulnerabilities found: ${audit_output.metadata.vulnerabilities.total}")
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
+                            slackSend(channel: "#team1-dependency_check", message: "- ${repoName[1]} - Outdated dependencies: ${outdated_output.size()}. Vulnerabilities found: ${audit_output.metadata.vulnerabilities.total}")
+                        }
+                    }
+                }
+            }
+        }
     }
     post {
         success {
