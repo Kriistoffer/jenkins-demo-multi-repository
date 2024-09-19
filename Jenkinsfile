@@ -12,40 +12,30 @@ pipeline {
         stage("Clone all repositories") {
             steps {
                 script {
-
                     env.node_repositories.tokenize(",").each { repository -> 
                         sh "git clone ${repository}"
                         echo "Finished cloning ${repository}"
                     }
-
-
-
-                    // echo "Cloning repositories..."
-                    // env.node_repositories.tokenize(",").each { repository ->
-                    //     echo "Cloning ${repository} now..."
-                    //     sh "mkdir -p ${repository}"
-                    //     dir("${repository}") {
-                    //         sh "git clone ${repository}"
-                    //     }
-                    //     echo "Finished cloning ${repository}"
-                    // }
                 }
             }
         }
-        // stage("Node: install node based repositories") {
-        //     steps {
-        //         script {
-        //             echo "Installing..."
-        //             env.node_repositories.tokenize(",").each { repository ->
-        //                 echo "Installing ${repository} now..."
-        //                 dir("${repository}") {
-        //                     sh "npm install"
-        //                 }
-        //                 echo "Finished installing ${repository}."
-        //             }
-        //         }
-        //     }
-        // }
+        stage("Node: install node based repositories") {
+            steps {
+                script {
+                    echo "Installing..."
+                    env.node_repositories.tokenize(",").each { repository ->
+                        def trimURL = {
+                            repository.startsWith('https://github.com/Kriistoffer/') ? repository - 'https://github.com/Kriistoffer/' : repository
+                        }
+                        echo "Installing ${repository} now..."
+                        dir("${repository}") {
+                            sh "npm install"
+                        }
+                        echo "Finished installing ${repository}."
+                    }
+                }
+            }
+        }
         // stage("Node: version and audit check") {
         //     steps {
         //         echo "Auditing and checking dependency versions..."
