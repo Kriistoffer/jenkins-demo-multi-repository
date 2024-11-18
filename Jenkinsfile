@@ -29,7 +29,7 @@ pipeline {
                         def repositoryName = (repo =~ /(?<=\/(?!.*\/))(.*)(?=\.)/)[0][1]
                         dir("${repositoryName}") {
                             sh "npm ci"
-                            sh "npm audit > ${WORKSPACE}/logs/${repositoryName}_audit.txt"
+                            sh "npm audit > ${WORKSPACE}/logs/${repositoryName}_audit.txt || true"
                         }
                     }
                 }
