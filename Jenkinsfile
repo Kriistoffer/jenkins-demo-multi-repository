@@ -16,7 +16,8 @@ pipeline {
                     env.node_repositories.tokenize(",").each { repository -> 
                         git clone ${repository}
                         // def regex = "(?<=/(?!.*/))(.*)(?=.)"
-                        def repositoryName = (repository =~ /Kr\w{4}/)
+                        def testing = "Kriistoffer/jenkins-demo"
+                        def repositoryName = (testing =~ /Kr\w{4}/)
 
                         echo "${repositoryName}"
                     }
