@@ -14,6 +14,7 @@ pipeline {
             steps {
                 script {
                     env.node_repositories.tokenize(",").each { repo -> 
+                        git clone ${repo}
                         echo "Installing ${repo} now..."
                     }
                 }
