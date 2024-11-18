@@ -34,7 +34,7 @@ pipeline {
 
                         dir("${repositoryName}") {
                             sh "npm ci"
-                            sh "npm audit > ${WORKSPACE}/logs/${repositoryName}_audit.txt || true"
+                            sh "npm audit --json > ${WORKSPACE}/logs/${repositoryName}_audit.json || true"
                         }
                     }
                 }
