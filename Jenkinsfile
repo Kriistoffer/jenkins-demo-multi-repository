@@ -24,13 +24,14 @@ pipeline {
             steps {
                 script {
                     env.node_repositories.tokenize(",").each { repo -> 
-                        if (fileExists("${repo}")) {
+                        def repositoryName = (repo =~ /(?<=\/(?!.*\/))(.*)(?=\.)/)[0][1]
+                        
+                        if (fileExists("${repositoryName}")) {
                             sh "git pull"
                         } else {
                             sh "git clone ${repo}"
                         }
 
-                        def repositoryName = (repo =~ /(?<=\/(?!.*\/))(.*)(?=\.)/)[0][1]
                         dir("${repositoryName}") {
                             sh "npm ci"
                             sh "npm audit > ${WORKSPACE}/logs/${repositoryName}_audit.txt || true"
