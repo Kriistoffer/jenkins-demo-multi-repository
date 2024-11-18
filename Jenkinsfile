@@ -15,7 +15,7 @@ pipeline {
                 script {
                     env.node_repositories.tokenize(",").each { repository -> 
                         git clone ${repository}
-                        echo repository =~ /(?!.*/)
+                        echo repository =~ /(?<=/(?!.*/))(.*)(?=.)/
                     }
                 }
             }
