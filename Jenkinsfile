@@ -10,7 +10,13 @@ pipeline {
         dotnet_projects = ""
     }
     stages {
-        stage("Clone all repositories") {
+        stage("Setup") {
+            if (!fileExists("logs")) {
+                sh "mkdir -p logs"
+                echo "Creating logs directory."
+            }
+        }
+        stage("Clone and scan repositories") {
             steps {
                 script {
                     env.node_repositories.tokenize(",").each { repo -> 
@@ -18,7 +24,8 @@ pipeline {
 
                         def repositoryName = (repo =~ /(?<=\/(?!.*\/))(.*)(?=\.)/)[0][1]
                         dir("${repositoryName}") {
-                            sh "pwd"
+                            sh "npm ci"
+                            sh "npm audit > ${WORKSPACE}/logs/${repositoryName}_audit.txt"
                         }
                     }
                 }
@@ -53,7 +60,7 @@ pipeline {
             }
         }
         always {
-            cleanWs()
+            // cleanWs()
             echo "Finished running."
         }
     }
