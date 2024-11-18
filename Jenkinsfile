@@ -22,14 +22,14 @@ pipeline {
         stage("Node: install node based repositories") {
             steps {
                 script {
-                    
+                    echo "Adding stage later, if needed."
                 }
             }
         }
         stage("Node: version and audit check") {
             steps {
                 script {
-                    
+                    echo "Adding stage later, if needed."
                 }
             }
         }
