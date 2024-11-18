@@ -13,15 +13,11 @@ pipeline {
         stage("Clone all repositories") {
             steps {
                 script {
-                    echo "Random echo."
-                    // env.node_repositories.tokenize(",").each { repository -> 
-                    //     git clone ${repository}
-                    //     // def regex = "(?<=/(?!.*/))(.*)(?=.)"
-                    //     def testing = "Kriistoffer/jenkins-demo"
-                    //     def repositoryName = (testing =~ /Kr\w{4}/)
+                    env.node_repositories.tokenize(",").each { repository -> 
+                        git clone ${repository}
+                        echo "Cloning ${repository}..."
 
-                    //     echo "${repositoryName}"
-                    // }
+                    }
                 }
             }
         }
@@ -29,8 +25,8 @@ pipeline {
             steps {
                 script {
                     echo "Adding stage later, if needed."
-                    def testing = "Kriistoffer/jenkins-demo"
-                    def repositoryName = (testing =~ /Kr\w{4}/)[0][1]
+                    def testing = "https://github.com/Kriistoffer/jenkins-demo-2.git"
+                    def repositoryName = (testing =~ /(?<=\/(?!.*\/))(.*)(?=\.)/)[0][1]
 
                     echo "${repositoryName}"
                 }
