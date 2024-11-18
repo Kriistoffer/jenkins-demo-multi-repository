@@ -25,9 +25,9 @@ pipeline {
                 script {
                     env.node_repositories.tokenize(",").each { repo -> 
                         def repositoryName = (repo =~ /(?<=\/(?!.*\/))(.*)(?=\.)/)[0][1]
-                        
+
                         if (fileExists("${repositoryName}")) {
-                            sh "git pull"
+                            sh "git pull origin master"
                         } else {
                             sh "git clone ${repo}"
                         }
