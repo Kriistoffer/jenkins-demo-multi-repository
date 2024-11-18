@@ -13,8 +13,10 @@ pipeline {
         stage("Clone all repositories") {
             steps {
                 script {
+                    Pattern p = Pattern("\/(?!.*\/)")
                     env.node_repositories.tokenize(",").each { repository -> 
-                        echo "${repository}"
+                        git clone ${repository}
+                        echo ${repository}.find("\/(?!.*\/)")
                     }
                 }
             }
