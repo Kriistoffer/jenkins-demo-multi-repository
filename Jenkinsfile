@@ -24,7 +24,11 @@ pipeline {
             steps {
                 script {
                     env.node_repositories.tokenize(",").each { repo -> 
-                        sh "git clone ${repo}"
+                        if (fileExists("${repo}")) {
+                            sh "git pull"
+                        } else {
+                            sh "git clone ${repo}"
+                        }
 
                         def repositoryName = (repo =~ /(?<=\/(?!.*\/))(.*)(?=\.)/)[0][1]
                         dir("${repositoryName}") {
