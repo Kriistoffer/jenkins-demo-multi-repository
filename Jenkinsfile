@@ -13,10 +13,8 @@ pipeline {
         stage("Clone all repositories") {
             steps {
                 script {
-                    env.node_repositories.tokenize(",").each { repository -> 
-                        // git clone ${repository}
-                        // echo "Cloning ${repository}..."
-                        echo ${repository}
+                    env.node_repositories.tokenize(",").each { repo -> 
+                        echo "Installing ${repo} now..."
                     }
                 }
             }
