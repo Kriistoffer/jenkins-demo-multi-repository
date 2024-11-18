@@ -30,7 +30,7 @@ pipeline {
                 script {
                     echo "Adding stage later, if needed."
                     def testing = "Kriistoffer/jenkins-demo"
-                    def repositoryName = (testing =~ /Kr\w{4}/)
+                    def repositoryName = (testing =~ /Kr\w{4}/)[0][1]
 
                     echo "${repositoryName}"
                 }
