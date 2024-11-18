@@ -1,3 +1,5 @@
+import java.util.regex
+
 pipeline {
     agent any
     tools {
@@ -5,7 +7,7 @@ pipeline {
         dotnetsdk "dotnet"
     }
     environment {
-        node_repositories = "https://github.com/Kriistoffer/jenkins-demo,https://github.com/Kriistoffer/jenkins-demo-2"
+        node_repositories = "https://github.com/Kriistoffer/jenkins-demo.git,https://github.com/Kriistoffer/jenkins-demo-2.git"
         node_repoNames = "jenkins-demo,jenkins-demo-2"
         dotnet_projects = ""
     }
@@ -15,7 +17,7 @@ pipeline {
                 script {
                     env.node_repositories.tokenize(",").each { repository -> 
                         git clone ${repository}
-                        def repositoryName = repository =~ /(?<=\/(?!.*\/))(.*)(?=\.)/
+                        def repositoryName = repository =~ /((?<=\/(?!.*\/))(.*)(?=\.))/
 
                         echo ${repositoryName}
                     }
