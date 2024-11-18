@@ -15,7 +15,9 @@ pipeline {
                 script {
                     env.node_repositories.tokenize(",").each { repo -> 
                         sh "git clone ${repo}"
-                        echo "Installing ${repo} now..."
+
+                        def repositoryName = (repo =~ /(?<=\/(?!.*\/))(.*)(?=\.)/)[0][1]
+                        echo "${repositoryName}"
                     }
                 }
             }
