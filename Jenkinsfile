@@ -12,9 +12,11 @@ pipeline {
     stages {
         stage("Setup") {
             steps {
-                if (!fileExists("logs")) {
-                    sh "mkdir -p logs"
-                    echo "Creating logs directory."
+                script {
+                    if (!fileExists("logs")) {
+                        sh "mkdir -p logs"
+                        echo "Creating logs directory."
+                    }
                 }
             }
         }
