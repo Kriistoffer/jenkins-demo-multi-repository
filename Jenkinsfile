@@ -18,7 +18,7 @@ pipeline {
                         def regex = "(?<=/(?!.*/))(.*)(?=.)"
                         def repositoryName = repository =~ regex
 
-                        echo ${repositoryName}
+                        echo "${repositoryName}"
                     }
                 }
             }
