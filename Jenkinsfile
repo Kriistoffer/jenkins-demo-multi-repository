@@ -51,6 +51,7 @@ pipeline {
                     }
 
                     echo "vuln: ${vuln}"
+                    slackSend(channel: "#team2-dependency_check", color: "good", message: ${vuln}.split("-"))
                 }
             }
         }
