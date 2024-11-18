@@ -42,10 +42,10 @@ pipeline {
         stage("Node: sammanställ sårbarheter") {
             steps {
                 script {
-                    def repositoryName = (repo =~ /(?<=\/(?!.*\/))(.*)(?=\.)/)[0][1]
                     def vuln = []
                     
                     env.node_repositories.tokenize(",").each { project -> 
+                        def repositoryName = (project =~ /(?<=\/(?!.*\/))(.*)(?=\.)/)[0][1]
                         def result = readJSON(file: "${repositoryName}_audit.json")
                         vuln.add("${repositoryName}: ${result.metadata.vulnerabilities.total} found.") 
                     }
