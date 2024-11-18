@@ -13,14 +13,15 @@ pipeline {
         stage("Clone all repositories") {
             steps {
                 script {
-                    env.node_repositories.tokenize(",").each { repository -> 
-                        git clone ${repository}
-                        // def regex = "(?<=/(?!.*/))(.*)(?=.)"
-                        def testing = "Kriistoffer/jenkins-demo"
-                        def repositoryName = (testing =~ /Kr\w{4}/)
+                    echo "Random echo."
+                    // env.node_repositories.tokenize(",").each { repository -> 
+                    //     git clone ${repository}
+                    //     // def regex = "(?<=/(?!.*/))(.*)(?=.)"
+                    //     def testing = "Kriistoffer/jenkins-demo"
+                    //     def repositoryName = (testing =~ /Kr\w{4}/)
 
-                        echo "${repositoryName}"
-                    }
+                    //     echo "${repositoryName}"
+                    // }
                 }
             }
         }
@@ -28,6 +29,10 @@ pipeline {
             steps {
                 script {
                     echo "Adding stage later, if needed."
+                    def testing = "Kriistoffer/jenkins-demo"
+                    def repositoryName = (testing =~ /Kr\w{4}/)
+
+                    echo "${repositoryName}"
                 }
             }
         }
