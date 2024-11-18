@@ -46,7 +46,7 @@ pipeline {
                     
                     env.node_repositories.tokenize(",").each { project -> 
                         def repositoryName = (project =~ /(?<=\/(?!.*\/))(.*)(?=\.)/)[0][1]
-                        def result = readJSON(file: "${repositoryName}_audit.json")
+                        def result = readJSON(file: "${WORKSPACE}/logs/${repositoryName}_audit.json")
                         vuln.add("${repositoryName}: ${result.metadata.vulnerabilities.total} found.") 
                     }
 
