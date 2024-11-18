@@ -14,9 +14,9 @@ pipeline {
             steps {
                 script {
                     env.node_repositories.tokenize(",").each { repository -> 
-                        git clone ${repository}
-                        echo "Cloning ${repository}..."
-
+                        // git clone ${repository}
+                        // echo "Cloning ${repository}..."
+                        echo ${repository}
                     }
                 }
             }
