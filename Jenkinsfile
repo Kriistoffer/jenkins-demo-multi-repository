@@ -17,7 +17,9 @@ pipeline {
                         sh "git clone ${repo}"
 
                         def repositoryName = (repo =~ /(?<=\/(?!.*\/))(.*)(?=\.)/)[0][1]
-                        echo "${repositoryName}"
+                        dir("${repositoryName}") {
+                            sh "pwd"
+                        }
                     }
                 }
             }
@@ -26,10 +28,6 @@ pipeline {
             steps {
                 script {
                     echo "Adding stage later, if needed."
-                    def testing = "https://github.com/Kriistoffer/jenkins-demo-2.git"
-                    def repositoryName = (testing =~ /(?<=\/(?!.*\/))(.*)(?=\.)/)[0][1]
-
-                    echo "${repositoryName}"
                 }
             }
         }
