@@ -5,12 +5,11 @@ pipeline {
         dotnetsdk "dotnet"
     }
     environment {
-        node_repositories = "https://github.com/Kriistoffer/jenkins-demo.git,https://github.com/Kriistoffer/jenkins-demo-2.git"
-        node_repoNames = "jenkins-demo,jenkins-demo-2"
-        dotnet_projects = ""
+        node_repositories = "https://github.com/Kriistoffer/jenkins-demo.git,
+        https://github.com/Kriistoffer/jenkins-demo-2.git"
     }
     stages {
-        stage("Setup") {
+        stage("Förberedelser") {
             steps {
                 script {
                     if (!fileExists("logs")) {
@@ -20,7 +19,7 @@ pipeline {
                 }
             }
         }
-        stage("Clone and scan repositories") {
+        stage("Klona och scanna repositories") {
             steps {
                 script {
                     env.node_repositories.tokenize(",").each { repo -> 
@@ -40,14 +39,7 @@ pipeline {
                 }
             }
         }
-        stage("Node: install node based repositories") {
-            steps {
-                script {
-                    echo "Adding stage later, if needed."
-                }
-            }
-        }
-        stage("Node: version and audit check") {
+        stage("Node: sammanställ sårbarheter") {
             steps {
                 script {
                     echo "Adding stage later, if needed."
