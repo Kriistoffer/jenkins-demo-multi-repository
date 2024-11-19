@@ -49,11 +49,12 @@ pipeline {
                     env.node_repositories.tokenize(",").each { project -> 
                         def repositoryName = (project =~ regex)[0][1]
                         def result = readJSON(file: "${WORKSPACE}/logs/${repositoryName}_audit.json")
-                        vuln.add("${repositoryName}: ${result.metadata.vulnerabilities.total} found.") 
+                        vuln.add("${repositoryName}: ${result.metadata.vulnerabilities.total} found") 
                     }
 
                     echo "vuln: ${vuln}"
-                    slackSend(channel: "#team2-dependency_check", color: "good", message: "${vuln}.split("-")")
+                    def finalPrint = vuln.tokenize(",")
+                    slackSend(channel: "#team2-dependency_check", color: "good", message: "${finalPrint}")
                 }
             }
         }
