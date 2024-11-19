@@ -1,3 +1,5 @@
+def regex = /(?<=\/(?!.*\/))(.*)(?=\.)/
+
 pipeline {
     agent any
     tools {
@@ -19,7 +21,7 @@ pipeline {
                 }
             }
         }
-        stage("Klona och scanna repositories") {
+        stage("Node: klona och scanna repositories") {
             steps {
                 script {
                     env.node_repositories.tokenize(",").each { repo -> 
@@ -45,13 +47,13 @@ pipeline {
                     def vuln = []
                     
                     env.node_repositories.tokenize(",").each { project -> 
-                        def repositoryName = (project =~ /(?<=\/(?!.*\/))(.*)(?=\.)/)[0][1]
+                        def repositoryName = (project =~ regex)[0][1]
                         def result = readJSON(file: "${WORKSPACE}/logs/${repositoryName}_audit.json")
                         vuln.add("${repositoryName}: ${result.metadata.vulnerabilities.total} found.") 
                     }
 
                     echo "vuln: ${vuln}"
-                    slackSend(channel: "#team2-dependency_check", color: "good", message: "${vuln}.split(",")")
+                    slackSend(channel: "#team2-dependency_check", color: "good", message: "${vuln}.split("-")")
                 }
             }
         }
