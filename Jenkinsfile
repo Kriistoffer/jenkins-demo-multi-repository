@@ -53,7 +53,7 @@ pipeline {
                     }
 
                     echo "vuln: ${vuln}"
-                    def finalPrint = vuln.tokenize(",")
+                    def finalPrint = vuln.split("-")
                     slackSend(channel: "#team2-dependency_check", color: "good", message: "${finalPrint}")
                 }
             }
