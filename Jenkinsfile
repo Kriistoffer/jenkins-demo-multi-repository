@@ -1,5 +1,5 @@
 def regex = /(?<=\/(?!.*\/))(.*)(?=\.)/
-
+def repositoryName
 pipeline {
     agent any
     tools {
@@ -24,7 +24,7 @@ pipeline {
             steps {
                 script {
                     env.node_repositories.tokenize(",").each { repo -> 
-                        def repositoryName = (repo =~ /(?<=\/(?!.*\/))(.*)(?=\.)/)[0][1]
+                        repositoryName = (repo =~ /(?<=\/(?!.*\/))(.*)(?=\.)/)[0][1]
 
                         if (fileExists("${repositoryName}")) {
                             sh "git pull origin master"
