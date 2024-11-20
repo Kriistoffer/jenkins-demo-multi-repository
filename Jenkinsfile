@@ -7,10 +7,8 @@ pipeline {
         dotnetsdk "dotnet"
     }
     environment {
-        node_repositories = '''https://github.com/Kriistoffer/jenkins-demo.git,
-        https://github.com/Kriistoffer/jenkins-demo-2.git,
-        https://github.com/Kriistoffer/jenkins-demo-3.git'''
-        node_subdirectories = '''myapp,/,mysecondapp/src'''
+        node_repositories = "https://github.com/Kriistoffer/jenkins-demo.git,https://github.com/Kriistoffer/jenkins-demo-2.git,https://github.com/Kriistoffer/jenkins-demo-3.git"
+        node_subdirectories = "myapp,/,mysecondapp/src"
     }
     stages {
         stage("Förberedelser") {
