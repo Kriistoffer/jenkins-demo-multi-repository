@@ -34,7 +34,7 @@ pipeline {
                             dir("${directory}/${subdirectory}") {
                                 sh "pwd"
                             }
-                        }}
+                        }
                     }
                 }
             }
