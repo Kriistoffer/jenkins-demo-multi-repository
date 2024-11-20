@@ -27,14 +27,14 @@ pipeline {
             steps {
                 script {
                     env.node_repositories.tokenize(",").each{ repo -> 
-                        sh "git clone ${repo}"
-                        def directory = (repo =~ regex)
+                        echo "${repo}"
 
-                        env.node_subdirectories.tokenize(",").each{ subdirectory -> 
-                            dir("${directory}/${subdirectory}") {
-                                sh "pwd"
-                            }
-                        }
+                        def directory = (repo =~ regex)
+                        // env.node_subdirectories.tokenize(",").each{ subdirectory -> 
+                        //     dir("${directory}/${subdirectory}") {
+                        //         sh "pwd"
+                        //     }
+                        // }
                     }
                 }
             }
