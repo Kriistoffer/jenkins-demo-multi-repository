@@ -32,6 +32,12 @@ pipeline {
                             sh "git clone ${repo}"
                         }
                     }
+
+                    env.node_subdirectories.tokenize(",").each { subdir -> 
+                        dir("${repositoryName}/${subdir}") {
+                            sh "pwd"
+                        }
+                    }
                 }
             }
         }
