@@ -23,18 +23,17 @@ pipeline {
                 }
             }
         }
-        stage("Node: klona och scanna repositories") {
+        stage("Klona och scanna repositories") {
             steps {
                 script {
-                    env.node_repositories.tokenize(",").each{ repo -> 
-                        sh "git clone ${repo}"
+                    env.node_repositories.tokenize(",").each { repo -> 
+                        def repositoryName = (repo =~ /(?<=\/(?!.*\/))(.*)(?=\.)/)[0][1]
 
-                        def directory = (repo =~ regex)
-                        // env.node_subdirectories.tokenize(",").each{ subdirectory -> 
-                        //     dir("${directory}/${subdirectory}") {
-                        //         sh "pwd"
-                        //     }
-                        // }
+                        if (fileExists("${repositoryName}")) {
+                            sh "git pull origin master"
+                        } else {
+                            sh "git clone ${repo}"
+                        }
                     }
                 }
             }
