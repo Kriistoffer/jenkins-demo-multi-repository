@@ -30,7 +30,7 @@ pipeline {
                         sh "git clone ${repo}"
                         def directory = (repo =~ regex)
 
-                        env.node_subdirectories.tokenize(",").each{ subdirectory -> {
+                        env.node_subdirectories.tokenize(",").each{ subdirectory -> 
                             dir("${directory}/${subdirectory}") {
                                 sh "pwd"
                             }
