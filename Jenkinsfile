@@ -27,7 +27,7 @@ pipeline {
             steps {
                 script {
                     env.node_repositories.tokenize(",").each{ repo -> 
-                        git clone ${repo}
+                        sh "git clone https://github.com/Kriistoffer/jenkins-demo.git"
 
                         def directory = (repo =~ regex)
                         // env.node_subdirectories.tokenize(",").each{ subdirectory -> 
