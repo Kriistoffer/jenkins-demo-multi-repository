@@ -51,11 +51,12 @@ pipeline {
             script {
                 def now = new Date()
                 echo "failure"
+                cleanWs()
                 // slackSend(channel: "#team2-dependency_check", color: "bad", message: "Something has caused a failure when running ${JOB_NAME} at ${now.format("yyyy-MM-dd HH:mm", TimeZone.getTimeZone("GMT+2"))}. The failed build can be found here: ${BUILD_URL}console")
             }
         }
         always {
-            cleanWs()
+            // cleanWs()
             echo "Finished running."
         }
     }
