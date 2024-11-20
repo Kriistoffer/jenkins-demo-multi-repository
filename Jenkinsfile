@@ -31,11 +31,11 @@ pipeline {
                         } else {
                             sh "git clone ${repo}"
                         }
-                    }
 
-                    env.node_subdirectories.tokenize(",").each { subdir -> 
-                        dir("${repositoryName}/${subdir}") {
-                            sh "pwd"
+                        env.node_subdirectories.tokenize(",").each { subdir -> 
+                            dir("${repositoryName}/${subdir}") {
+                                sh "pwd"
+                            }
                         }
                     }
                 }
