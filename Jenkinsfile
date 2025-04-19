@@ -14,7 +14,7 @@ pipeline {
                     }
 
                     env.node_repositories.tokenize(",").each { repo -> 
-                        git clone ${repo}
+                        sh "git clone ${repo}"
                     }
                 }
             }
