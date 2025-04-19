@@ -23,7 +23,9 @@ pipeline {
             steps {
                 script {
                     def files = findFiles(glob: "**/package-lock.json")
-                    echo "Files: ${files.path}"
+                    for (file in files) {
+                        echo "Files: ${file.path}"
+                    }
                 }
             }
         }
