@@ -25,7 +25,7 @@ pipeline {
                     for (file in files) {
                         echo "Files: ${file.path}"
                         def regex = /[^w+].*$/
-                        def test = (file.path =~ regex[0][1])
+                        def test = (file.path =~ regex)[0][1]
                         echo "Corrected: ${test}"
                     }
                 }
