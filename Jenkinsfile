@@ -40,6 +40,7 @@ pipeline {
             }
         }
         always {
+            cleanWs()
             echo "Finished running."
         }
     }
