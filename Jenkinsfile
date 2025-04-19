@@ -22,12 +22,13 @@ pipeline {
             steps {
                 script {
                     def files = findFiles(glob: "**/package-lock.json")
-                    for (file in files) {
-                        echo "Files: ${file.path}"
-                        def regex = /[^\/]*/
-                        def test = (file.path =~ regex)[0][1]
-                        echo "Corrected: ${test}"
-                    }
+                    def regex = /[^\/]*/
+                    echo "File0: ${(files[0].path =~ regex)[0][1]}"
+                    // for (file in files) {
+                    //     echo "Files: ${file.path}"
+                    //     def test = (file.path =~ regex)[0][1]
+                    //     echo "Corrected: ${test}"
+                    // }
                 }
             }
         }
