@@ -1,4 +1,3 @@
-def regex = /(?<=\/(?!.*\/))(.*)(?=\.)/
 def repositoryName
 pipeline {
     agent any
@@ -19,13 +18,13 @@ pipeline {
                 }
             }
         }
-        stage("") {
+        stage("Testing") {
             steps {
                 script {
                     def files = findFiles(glob: "**/package-lock.json")
                     for (file in files) {
                         echo "Files: ${file.path}"
-                        regex = (file =~ /[^w+].*$,'')
+                        def regex = (file =~ /[^w+].*$,'')
                         echo "Corrected: ${regex}"
                     }
                 }
