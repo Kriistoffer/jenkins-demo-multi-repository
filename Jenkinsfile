@@ -2,42 +2,28 @@ def regex = /(?<=\/(?!.*\/))(.*)(?=\.)/
 def repositoryName
 pipeline {
     agent any
-    tools {
-        nodejs "nodejs"
-        dotnetsdk "dotnet"
-    }
     environment {
         node_repositories = "https://github.com/Kriistoffer/jenkins-demo.git,https://github.com/Kriistoffer/jenkins-demo-2.git,https://github.com/Kriistoffer/jenkins-demo-3.git"
-        node_subdirectories = "myapp,/,mysecondapp/src"
     }
     stages {
-        stage("Förberedelser") {
+        stage("Setup") {
             steps {
                 script {
                     if (!fileExists("logs")) {
-                        sh "mkdir -p logs"
+                        sh "mkdir logs"
+                    }
+
+                    env.node_repositories.tokenize(",").each { repo -> 
+                        git clone ${repo}
                     }
                 }
             }
         }
-        stage("Klona och scanna repositories") {
+        stage("") {
             steps {
                 script {
-                    env.node_repositories.tokenize(",").each { repo -> 
-                        repositoryName = (repo =~ /(?<=\/(?!.*\/))(.*)(?=\.)/)[0][1]
-
-                        if (fileExists("${repositoryName}")) {
-                            sh "git pull origin master"
-                        } else {
-                            sh "git clone ${repo}"
-                        }
-
-                        env.node_subdirectories.tokenize(",").each { subdir -> 
-                            dir("${repositoryName}/${subdir}") {
-                                sh "pwd"
-                            }
-                        }
-                    }
+                    def files = findFiles(glob: "**/package-lock.json")
+                    echo "Files: ${files}"
                 }
             }
         }
@@ -45,20 +31,15 @@ pipeline {
     post {
         success {
             script {
-                def now = new Date()
                 echo "success"
             }
         }
         failure {
             script {
-                def now = new Date()
                 echo "failure"
-                cleanWs()
-                // slackSend(channel: "#team2-dependency_check", color: "bad", message: "Something has caused a failure when running ${JOB_NAME} at ${now.format("yyyy-MM-dd HH:mm", TimeZone.getTimeZone("GMT+2"))}. The failed build can be found here: ${BUILD_URL}console")
             }
         }
         always {
-            // cleanWs()
             echo "Finished running."
         }
     }
