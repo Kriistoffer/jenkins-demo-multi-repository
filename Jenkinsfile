@@ -1,6 +1,9 @@
 def repositoryName
 pipeline {
     agent any
+    tools {
+        nodejs "nodejs"
+    }
     environment {
         baseUrl = "https://github.com/Kriistoffer"
         allRepositories = "jenkins-demo,jenkins-demo-2,jenkins-demo-3"
