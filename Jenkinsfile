@@ -25,16 +25,15 @@ pipeline {
                     // def regex = /[^\/]*/
                     def line = "this is a test line"
                     // Patcher p = Pattern.compile("()")
-                    def test = (line =~ /^([^\/]+)/)[0][1]
-                    echo "${test}"
+                    // echo "${test}"
 
 
 
-                    // for (file in files) {
-                    //     echo "Files: ${file.path}"
-                    //     def test = (file.path =~ regex)[0][1]
-                    //     echo "Corrected: ${test}"
-                    // }
+                    for (file in files) {
+                        echo "Files: ${file.path}"
+                        def test = (file.path =~ /^([^\/]+)/)[0][1]
+                        echo "Corrected: ${test}"
+                    }
                 }
             }
         }
