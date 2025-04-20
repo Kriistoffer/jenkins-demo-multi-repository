@@ -25,11 +25,7 @@ pipeline {
 
                     echo "Test: ${files}"
 
-                    if (files == "[]") {
-                        echo "The list is empty."
-                    } else {
-                        echo "The list is not empty."
-                    }
+                    echo "Test first element: ${files[0]}"
             
                     // for (file in files) {
                     //     echo "Files: ${file.path}"
