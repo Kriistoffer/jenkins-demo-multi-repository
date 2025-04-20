@@ -24,8 +24,11 @@ pipeline {
                     def files = findFiles(glob: "**/testing.json")
 
                     echo "Test: ${files}"
-
-                    echo "Test first element: ${files[0]}"
+                    try {
+                        echo "Test first element: ${files[0]}"
+                    } catch (Exception ex) {
+                        echo "No files could be found."
+                    }
             
                     // for (file in files) {
                     //     echo "Files: ${file.path}"
