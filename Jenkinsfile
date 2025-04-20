@@ -29,31 +29,30 @@ pipeline {
 
                     for (file in files) {
                         def parentDirectory = "${file.path}" - "/${file.name}"
-                        echo "parentdir: ${parentDirectory}"
-                        // dir("${parentDirectory}") {
-                        //     sh "${env.PACKAGEMANAGER} install"
-                        //     sh "${env.PACKAGEMANAGER} audit > ${WORKSPACE}/logs/audit_output.json"
-                        //     sh "${env.PACKAGEMANAGER} outdated > ${WORKSPACE}/logs/outdated_output.json"
+                        dir("${parentDirectory}") {
+                            sh "${env.PACKAGEMANAGER} install"
+                            sh "${env.PACKAGEMANAGER} audit > ${WORKSPACE}/logs/audit_output.json"
+                            sh "${env.PACKAGEMANAGER} outdated > ${WORKSPACE}/logs/outdated_output.json"
 
-                        //     if (${env.PACKAGEMANAGER} == "npm") {
-                        //         //NPM STEPS
-                        //         //SLACKSEND
-                        //         def node_vuln = readJSON(file: "${WORKSPACE}/logs/audit_output.json")
-                        //         def node_outd = readJSON(file: "${WORKSPACE}/logs/outdated_output.json")
+                            if (${env.PACKAGEMANAGER} == "npm") {
+                                //NPM STEPS
+                                //SLACKSEND
+                                def node_vuln = readJSON(file: "${WORKSPACE}/logs/audit_output.json")
+                                def node_outd = readJSON(file: "${WORKSPACE}/logs/outdated_output.json")
 
-                        //         slackSend(color: "good",
-                        //         channel: ${env.slackChannel},
-                        //         message: "Vulnerabilities found for ${parentDirectory}: ${node_vuln.vulnerabilities.metadata.total}")
+                                slackSend(color: "good",
+                                channel: ${env.slackChannel},
+                                message: "Vulnerabilities found for ${parentDirectory}: ${node_vuln.vulnerabilities.metadata.total}")
 
-                        //         slackSend(color: "good",
-                        //         channel: ${env.slackChannel},
-                        //         message: "Outdated found for ${parentDirectory}: ${node_outd.size()}")
-                        //     } else {
-                        //         //YARN STEPS
-                        //         //SLACKSEND
-                        //         echo "This is a placeholder for the Yarn steps"
-                        //     }
-                        // }
+                                slackSend(color: "good",
+                                channel: ${env.slackChannel},
+                                message: "Outdated found for ${parentDirectory}: ${node_outd.size()}")
+                            } else {
+                                //YARN STEPS
+                                //SLACKSEND
+                                echo "This is a placeholder for the Yarn steps"
+                            }
+                        }
                     }
                 }
             }
