@@ -48,7 +48,7 @@ pipeline {
                                 message: "Vulnerabilities found for ${parentDirectory}: ${node_vuln.vulnerabilities.metadata.total}")
 
                                 slackSend(color: "good",
-                                channel: ${env.slackChannel},
+                                channel: "${env.slackChannel}",
                                 message: "Outdated found for ${parentDirectory}: ${node_outd.size()}")
                             } else {
                                 //YARN STEPS
