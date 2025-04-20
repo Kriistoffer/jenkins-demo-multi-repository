@@ -44,7 +44,7 @@ pipeline {
                                 def node_outd = readJSON(file: "${WORKSPACE}/logs/outdated_output.json")
 
                                 slackSend(color: "good",
-                                channel: ${env.slackChannel},
+                                channel: "${env.slackChannel}",
                                 message: "Vulnerabilities found for ${parentDirectory}: ${node_vuln.vulnerabilities.metadata.total}")
 
                                 slackSend(color: "good",
