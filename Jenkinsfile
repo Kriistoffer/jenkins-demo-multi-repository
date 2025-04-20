@@ -24,13 +24,12 @@ pipeline {
                     def files = findFiles(glob: "**/testing.json")
 
                     echo "Test: ${files}"
-                    println(files.isEmpty())
 
-                    // if (files.isEmpty()) {
-                    //     echo "The list is empty."
-                    // } else {
-                    //     echo "The list is not empty."
-                    // }
+                    if (files.getPlainText().isEmpty()) {
+                        echo "The list is empty."
+                    } else {
+                        echo "The list is not empty."
+                    }
             
                     // for (file in files) {
                     //     echo "Files: ${file.path}"
