@@ -25,7 +25,7 @@ pipeline {
                     // def regex = /[^\/]*/
                     def line = "this is a test line"
                     // Patcher p = Pattern.compile("()")
-                    def test = (line =~ /(test){1}/)[0][1]
+                    def test = (line =~ /^([^\/]+)/)[0][1]
                     echo "${test}"
 
 
