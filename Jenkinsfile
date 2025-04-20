@@ -6,7 +6,6 @@ pipeline {
         allRepositories = "jenkins-demo,jenkins-demo-2,jenkins-demo-3"
         PACKAGEMANAGER = "npm"
         slackChannel = "team1-dependency_check"
-        skipperList = "dotnet"
     }
     stages {
         stage("Setup") {
@@ -18,7 +17,7 @@ pipeline {
                     env.allRepositories.tokenize(",").each { repo -> 
                         sh "git clone ${env.baseUrl}/${repo}"
                     }
-                    def skipper = env.skipperList.tokenize(",")
+                    // def skipper = env.skipperList.tokenize(",")
                 }
             }
         }
