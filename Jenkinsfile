@@ -28,6 +28,7 @@ pipeline {
                         echo "Test first element: ${files[0]}"
                     } catch (Exception ex) {
                         echo "No files could be found."
+                        echo "Exception: ${ex}"
                     }
             
                     // for (file in files) {
