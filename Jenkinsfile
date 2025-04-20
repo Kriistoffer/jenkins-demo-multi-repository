@@ -28,7 +28,7 @@ pipeline {
                     echo "files: ${files}"
 
                     for (file in files) {
-                        def parentDirectory = "/${file.path}" - "/${file.name}"
+                        def parentDirectory = "${file.path}" - "/${file.name}"
                         echo "parentdir: ${parentDirectory}"
                         // dir("${parentDirectory}") {
                         //     sh "${env.PACKAGEMANAGER} install"
