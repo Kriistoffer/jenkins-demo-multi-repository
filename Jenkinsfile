@@ -43,13 +43,13 @@ pipeline {
                                 def node_vuln = readJSON(file: "${WORKSPACE}/logs/audit_output.json")
                                 def node_outd = readJSON(file: "${WORKSPACE}/logs/outdated_output.json")
 
-                                slackSend(color: "good",
-                                channel: "${env.slackChannel}",
-                                message: "Vulnerabilities found for ${parentDirectory}: ${node_vuln.vulnerabilities.metadata.total}")
+                                // slackSend(color: "good",
+                                // channel: "${env.slackChannel}",
+                                // message: "Vulnerabilities found for ${parentDirectory}: ${node_vuln.vulnerabilities.metadata.total}")
 
-                                slackSend(color: "good",
-                                channel: "${env.slackChannel}",
-                                message: "Outdated found for ${parentDirectory}: ${node_outd.size()}")
+                                // slackSend(color: "good",
+                                // channel: "${env.slackChannel}",
+                                // message: "Outdated found for ${parentDirectory}: ${node_outd.size()}")
                             } else {
                                 //YARN STEPS
                                 //SLACKSEND
