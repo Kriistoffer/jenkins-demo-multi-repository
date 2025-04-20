@@ -45,7 +45,7 @@ pipeline {
 
                                 slackSend(color: "good",
                                 channel: "${env.slackChannel}",
-                                message: "Vulnerabilities found for ${parentDirectory}: ${node_vuln.vulnerabilities.metadata.total}")
+                                message: "Vulnerabilities found for ${parentDirectory}: ${node_vuln.metadata.vulnerabilities.total}")
 
                                 slackSend(color: "good",
                                 channel: "${env.slackChannel}",
