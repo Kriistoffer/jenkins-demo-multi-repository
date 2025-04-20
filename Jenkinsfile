@@ -34,8 +34,8 @@ pipeline {
                         def parentDirectory = "${file.path}" - "/${file.name}"
                         dir("${parentDirectory}") {
                             sh "${env.PACKAGEMANAGER} install"
-                            sh "${env.PACKAGEMANAGER} audit > ${WORKSPACE}/logs/audit_output.json"
-                            sh "${env.PACKAGEMANAGER} outdated > ${WORKSPACE}/logs/outdated_output.json"
+                            sh "${env.PACKAGEMANAGER} audit > ${WORKSPACE}/logs/audit_output.json || true"
+                            sh "${env.PACKAGEMANAGER} outdated > ${WORKSPACE}/logs/outdated_output.json || true"
 
                             if (${env.PACKAGEMANAGER} == "npm") {
                                 //NPM STEPS
