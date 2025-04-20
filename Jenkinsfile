@@ -25,7 +25,7 @@ pipeline {
 
                     echo "Test: ${files}"
 
-                    if (files.getPlainText().isEmpty()) {
+                    if (files.toString().isEmpty()) {
                         echo "The list is empty."
                     } else {
                         echo "The list is not empty."
