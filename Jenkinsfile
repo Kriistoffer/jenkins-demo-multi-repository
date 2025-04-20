@@ -24,7 +24,7 @@ pipeline {
                     def files = findFiles(glob: "**/package-lock.json")
                     // def regex = /[^\/]*/
                     def line = "this is a test line"
-                    def test = (line =~ /[is]/)[0][1]
+                    def test = (line =~ /(?:^|\W)is(?:$|\W)/)[0][1]
                     echo "${test}"
 
 
