@@ -37,7 +37,7 @@ pipeline {
                             sh "${env.PACKAGEMANAGER} audit > ${WORKSPACE}/logs/audit_output.json || true"
                             sh "${env.PACKAGEMANAGER} outdated > ${WORKSPACE}/logs/outdated_output.json || true"
 
-                            if (${env.PACKAGEMANAGER} == "npm") {
+                            if ("${env.PACKAGEMANAGER}" == "npm") {
                                 //NPM STEPS
                                 //SLACKSEND
                                 def node_vuln = readJSON(file: "${WORKSPACE}/logs/audit_output.json")
