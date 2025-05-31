@@ -9,6 +9,7 @@ pipeline {
         allRepositories = "jenkins-demo,jenkins-demo-2,jenkins-demo-3"
         PACKAGEMANAGER = "npm"
         slackChannel = "team1-dependency_check"
+        project_version = "1.45"
         jenkinsdemo_version = "1.3"
     }
     stages {
@@ -32,7 +33,8 @@ pipeline {
                 script {
                     dir("jenkins-demo/myapp/") {
                         sh "npm install"
-                        sh "npm audit --json > jenkins-demo_version_${env.jenkinsdemo_version}.json || true"
+                        echo "JENKINS_DEMO V.${jenkinsdemo_version} >> ${WORKSPACE}/logs/project_${env.project_version}.txt" 
+                        sh "npm audit >> ${WORKSPACE}/logs/project_${env.project_version}.txt || true"
                     }
                 }
             }
