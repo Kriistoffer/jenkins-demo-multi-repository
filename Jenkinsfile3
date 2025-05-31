@@ -55,7 +55,7 @@ pipeline {
 
                     dir("jenkins-demo-3/mysecondapp/src/") {
                         sh "npm install"
-                        sh "echo 'JENKINS_DEMO-2 V.${jenkinsdemo3_version}' >> ${WORKSPACE}/logs/project_${env.project_version}.txt"
+                        sh "echo 'JENKINS_DEMO-3 V.${jenkinsdemo3_version}' >> ${WORKSPACE}/logs/project_${env.project_version}.txt"
                         sh "echo '\n' >> ${WORKSPACE}/logs/project_${env.project_version}.txt"
                         sh "npm audit > ${WORKSPACE}/logs/tmp.txt || true"
                         sh "sed -i '1,2d' ${WORKSPACE}/logs/tmp.txt"
