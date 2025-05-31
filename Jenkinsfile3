@@ -34,7 +34,7 @@ pipeline {
                     dir("jenkins-demo/myapp/") {
                         sh "npm install"
                         echo "JENKINS_DEMO V.${jenkinsdemo_version} >> ${WORKSPACE}/logs/project_${env.project_version}.txt" 
-                        sh "npm audit >> ${WORKSPACE}/logs/project_${env.project_version}.txt || true"
+                        // sh "npm audit > ${WORKSPACE}/logs/project_${env.project_version}.txt || true"
                     }
                 }
             }
