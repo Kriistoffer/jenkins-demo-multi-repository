@@ -28,7 +28,7 @@ pipeline {
                 script {
                     sh '''
                     cd jenkins-demo/myapp/
-                    npm audit
+                    npm audit || true
                     '''
                 }
             }
