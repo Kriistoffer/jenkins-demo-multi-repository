@@ -40,6 +40,7 @@ pipeline {
                         sh "npm audit > ${WORKSPACE}/logs/tmp.txt || true"
                         sh "sed -i '1,2d' ${WORKSPACE}/logs/tmp.txt"
                         sh "head -n -8 ${WORKSPACE}/logs/tmp.txt >> ${WORKSPACE}/logs/project_${env.project_version}.txt"
+                        sh "echo '\n' >> ${WORKSPACE}/logs/project_${env.project_version}.txt"
                     }
 
                     dir("jenkins-demo-2/") {
@@ -49,6 +50,7 @@ pipeline {
                         sh "npm audit > ${WORKSPACE}/logs/tmp.txt || true"
                         sh "sed -i '1,2d' ${WORKSPACE}/logs/tmp.txt"
                         sh "head -n -8 ${WORKSPACE}/logs/tmp.txt >> ${WORKSPACE}/logs/project_${env.project_version}.txt"
+                        sh "echo '\n' >> ${WORKSPACE}/logs/project_${env.project_version}.txt"
                     }
 
                     dir("jenkins-demo-3/mysecondapp/src/") {
@@ -58,6 +60,7 @@ pipeline {
                         sh "npm audit > ${WORKSPACE}/logs/tmp.txt || true"
                         sh "sed -i '1,2d' ${WORKSPACE}/logs/tmp.txt"
                         sh "head -n -8 ${WORKSPACE}/logs/tmp.txt >> ${WORKSPACE}/logs/project_${env.project_version}.txt"
+                        sh "echo '\n' >> ${WORKSPACE}/logs/project_${env.project_version}.txt"
                     }
                 }
             }
