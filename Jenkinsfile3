@@ -31,7 +31,7 @@ pipeline {
             steps {
                 script {
                     sh "cd jenkins-demo/myapp/"
-                    sh "npm audit --json || true > jenkins-demo_version_${env.jenkinsdemo_version}.json"
+                    sh "npm audit --json > jenkins-demo_version_${env.jenkinsdemo_version}.json || true"
                 }
             }
         }
