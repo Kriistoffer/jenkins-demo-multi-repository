@@ -1,0 +1,53 @@
+def repositoryName
+pipeline {
+    agent any
+    tools {
+        nodejs "nodejs"
+    }
+    environment {
+        baseUrl = "https://github.com/Kriistoffer"
+        allRepositories = "jenkins-demo,jenkins-demo-2,jenkins-demo-3"
+        PACKAGEMANAGER = "npm"
+        slackChannel = "team1-dependency_check"
+    }
+    stages {
+        stage("Setup") {
+            steps {
+                script {
+                    if (!fileExists("logs")) {
+                        sh "mkdir logs"
+                    }
+                    env.allRepositories.tokenize(",").each { repo -> 
+                        sh "git clone ${env.baseUrl}/${repo}"
+                    }
+                }
+            }
+        }
+        stage("Node") {
+            steps {
+                script {
+                    sh '''
+                    cd jenkins-demo/myapp/
+                    npm audit
+                    '''
+                }
+            }
+        }
+    }
+    post {
+        success {
+            script {
+                echo "success"
+            }
+        }
+        failure {
+            script {
+                echo "failure"
+            }
+        }
+        always {
+            cleanWs()
+            echo "Finished running."
+        }
+    }
+}
