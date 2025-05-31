@@ -9,11 +9,15 @@ pipeline {
         allRepositories = "jenkins-demo,jenkins-demo-2,jenkins-demo-3"
         PACKAGEMANAGER = "npm"
         slackChannel = "team1-dependency_check"
+        jenkinsdemo_version = "1.3"
     }
     stages {
         stage("Setup") {
             steps {
                 script {
+                    echo "Cleaning up..."
+                    cleanWs()
+
                     if (!fileExists("logs")) {
                         sh "mkdir logs"
                     }
@@ -26,10 +30,8 @@ pipeline {
         stage("Node") {
             steps {
                 script {
-                    sh '''
-                    cd jenkins-demo/myapp/
-                    npm audit || true
-                    '''
+                    sh "cd jenkins-demo/myapp/"
+                    sh "npm audit || true > jenkins-demo_version_${env.jenkinsdemo_version}"
                 }
             }
         }
@@ -46,7 +48,6 @@ pipeline {
             }
         }
         always {
-            cleanWs()
             echo "Finished running."
         }
     }
