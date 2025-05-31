@@ -34,8 +34,8 @@ pipeline {
                     dir("jenkins-demo/myapp/") {
                         sh "npm install"
                         sh "echo 'JENKINS_DEMO V.${jenkinsdemo_version}' >> ${WORKSPACE}/logs/project_${env.project_version}.txt"
-                        sh "npm audit >> ${WORKSPACE}/logs/project_${env.project_version}.txt || true"
-                        sh "tac '${WORKSPACE}/logs/project_${env.project_version}.txt' | tail n+8 | tac '${WORKSPACE}/logs/project_${env.project_version}.txt'"
+                        sh "npm audit > ${WORKSPACE}/logs/tmp.txt || true"
+                        sh "head -n -8 ${WORKSPACE}/logs/tmp.txt >> ${WORKSPACE}/logs/project_${env.project_version}.txt"
                     }
                 }
             }
