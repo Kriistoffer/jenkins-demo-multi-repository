@@ -86,6 +86,7 @@ pipeline {
                     echo "Port: ${port}"
                     echo "Service2 name: ${yamlfile.services[1].name}"
                     echo "Service2 enabled: ${yamlfile.services[1].enabled}"
+                    echo "Service1 url: ${yamlfile.services[0].url}"
                     // echo "Test 1 Result: ${test1_res}"
                     // echo "Test 2 Description: ${test2_desc}"
                     // echo "Test 2 Result: ${test2_res}"
