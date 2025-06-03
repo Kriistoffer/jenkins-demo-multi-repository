@@ -12,7 +12,7 @@ pipeline {
     environment {
         baseUrl = "https://github.com/Kriistoffer"
         allRepositories = "jenkins-demo,jenkins-demo-2,jenkins-demo-3"
-        demo1_commit = "e19a4b624fb9a7b5f85c580a03defc4bc85ba1ac"
+        demo1_commit = ""
     }
     stages {
         stage("Setup") {
