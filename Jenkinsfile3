@@ -34,7 +34,7 @@ pipeline {
         stage("Reading YAML") {
             steps {
                 script {
-                    project_version = yamlfile.project_version
+                    project_version = yamlfile.projectversion
                     jenkinsdemo_version = yamlfile.jenkinsdemo.version
                     jenkinsdemo2_version = yamlfile.jenkinsdemo2.version
                     jenkinsdemo3_version = yamlfile.jenkinsdemo3.version
