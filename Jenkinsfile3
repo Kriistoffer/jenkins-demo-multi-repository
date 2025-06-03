@@ -65,6 +65,14 @@ pipeline {
                 }
             }
         }
+        stage("Reading YAML") {
+            steps {
+                script {
+                    def yamlfile = readYaml file: 'data.yaml'
+                    echo "Port is: ${yamlfile.database.port}"
+                }
+            }
+        }
     }
     post {
         success {
