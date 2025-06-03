@@ -1,9 +1,8 @@
-def test1_res
-def test2_res
-def test1_desc
-def test2_desc
-def port
 def yamlfile
+def project_version
+def jenkinsdemo_version
+def jenkinsdemo2_version
+def jenkinsdemo3_version
 
 pipeline {
     agent any
@@ -15,10 +14,6 @@ pipeline {
         allRepositories = "jenkins-demo,jenkins-demo-2,jenkins-demo-3"
         PACKAGEMANAGER = "npm"
         slackChannel = "team1-dependency_check"
-        project_version = "1.45"
-        jenkinsdemo_version = "1.3"
-        jenkinsdemo2_version = "1.35"
-        jenkinsdemo3_version = "1.4"
     }
     stages {
         stage("Setup") {
@@ -38,10 +33,24 @@ pipeline {
                 }
             }
         }
+        stage("Reading YAML") {
+            steps {
+                script {
+                    project_version = yamlfile.project_version
+                    jenkinsdemo_version = yamlfile.jenkins-demo.version
+                    jenkinsdemo2_version = yamlfile.jenkins-demo-2.version
+                    jenkinsdemo3_version = yamlfile.jenkins-demo-3.version
+                }
+            }
+        }
         stage("Node") {
             steps {
                 script {
                     echo "Skipping this stage for now."
+                    echo "Projectversion is: ${project_version}"
+                    echo "Jenkins Demo Version is: ${jenkinsdemo_version}"
+                    echo "Jenkins Demo 2 Version is: ${jenkinsdemo2_version}"
+                    echo "Jenkins Demo 3 Version is: ${jenkinsdemo3_version}"
                     // dir("jenkins-demo/myapp/") {
                     //     sh "npm install"
                     //     sh "echo 'JENKINS_DEMO V.${jenkinsdemo_version}' >> ${WORKSPACE}/logs/project_${env.project_version}.txt"
@@ -71,25 +80,6 @@ pipeline {
                     //     sh "head -n -8 ${WORKSPACE}/logs/tmp.txt >> ${WORKSPACE}/logs/project_${env.project_version}.txt"
                     //     sh "echo '\n' >> ${WORKSPACE}/logs/project_${env.project_version}.txt"
                     // }
-                }
-            }
-        }
-        stage("Reading YAML") {
-            steps {
-                script {
-                    port = yamlfile.database.port
-                    // test1_desc = yamlfile.test.test_cases.id1.description
-                    // test2_desc = yamlfile.test.test_cases.id2.description
-                    // test1_res = yamlfile.test.test_cases.id1.result
-                    // test2_res = yamlfile.test.test_cases.id2.result
-
-                    echo "Port: ${port}"
-                    echo "Service2 name: ${yamlfile.services[1].name}"
-                    echo "Service2 enabled: ${yamlfile.services[1].enabled}"
-                    echo "Service1 url: ${yamlfile.services[0].url}"
-                    // echo "Test 1 Result: ${test1_res}"
-                    // echo "Test 2 Description: ${test2_desc}"
-                    // echo "Test 2 Result: ${test2_res}"
                 }
             }
         }
