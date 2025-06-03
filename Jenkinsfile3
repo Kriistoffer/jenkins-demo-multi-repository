@@ -12,6 +12,7 @@ pipeline {
     environment {
         baseUrl = "https://github.com/Kriistoffer"
         allRepositories = "jenkins-demo,jenkins-demo-2,jenkins-demo-3"
+        demo1_commit = "e19a4b624fb9a7b5f85c580a03defc4bc85ba1ac"
     }
     stages {
         stage("Setup") {
@@ -29,11 +30,13 @@ pipeline {
 
                     yamlfile = readYaml file: 'jenkins-demo-2/data.yaml'
 
-                    dir("jenkins-demo-2") {
-                        sh "git checkout 'e19a4b624fb9a7b5f85c580a03defc4bc85ba1ac'"
+                    if (env.demo1_commit != null || env.demo1_commit != "") {
+                        dir("jenkins-demo-2") {
+                            sh "git checkout ${env.demo1_commit}"
 
-                        sh "git status"
-                        sh "git branch"
+                            sh "git status"
+                            sh "git branch"
+                        }
                     }
                 }
             }
