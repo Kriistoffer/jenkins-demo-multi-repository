@@ -3,6 +3,7 @@ def test2_res
 def test1_desc
 def test2_desc
 def port
+def yamlfile
 
 pipeline {
     agent any
@@ -33,7 +34,7 @@ pipeline {
                         sh "git clone ${env.baseUrl}/${repo}"
                     }
 
-                    def yamlfile = readYaml file: 'jenkins-demo-2/data.yaml'
+                    yamlfile = readYaml file: 'jenkins-demo-2/data.yaml'
                 }
             }
         }
