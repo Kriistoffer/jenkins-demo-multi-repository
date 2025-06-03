@@ -84,7 +84,7 @@ pipeline {
                     // test2_res = yamlfile.test.test_cases.id2.result
 
                     echo "Port: ${port}"
-                    // echo "Test 1 Description: ${yamlfile.test.test_cases}"
+                    echo "Test 1 Description: ${yamlfile.test.test_cases}"
                     // echo "Test 1 Result: ${test1_res}"
                     // echo "Test 2 Description: ${test2_desc}"
                     // echo "Test 2 Result: ${test2_res}"
