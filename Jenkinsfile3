@@ -44,36 +44,36 @@ pipeline {
         stage("Collecting data") {
             steps {
                 script {
-                    sh "echo 'h1. PROJECT v.${project_version}' > ${WORKSPACE}/logs/project_${env.project_version}.txt"
+                    sh "echo 'h1. PROJECT v.${project_version}' > ${WORKSPACE}/logs/project_${project_version}.txt"
 
                     dir("jenkins-demo/myapp/") {
                         sh "npm install"
-                        sh "echo 'h3. Jenkinsdemo v.${jenkinsdemo_version}' >> ${WORKSPACE}/logs/project_${env.project_version}.txt"
-                        sh "echo '\n' >> ${WORKSPACE}/logs/project_${env.project_version}.txt"
+                        sh "echo 'h3. Jenkinsdemo v.${jenkinsdemo_version}' >> ${WORKSPACE}/logs/project_${project_version}.txt"
+                        sh "echo '\n' >> ${WORKSPACE}/logs/project_${project_version}.txt"
                         sh "npm audit > ${WORKSPACE}/logs/tmp.txt || true"
                         sh "sed -i '1,2d' ${WORKSPACE}/logs/tmp.txt"
-                        sh "head -n -8 ${WORKSPACE}/logs/tmp.txt >> ${WORKSPACE}/logs/project_${env.project_version}.txt"
-                        sh "echo '\n' >> ${WORKSPACE}/logs/project_${env.project_version}.txt"
+                        sh "head -n -8 ${WORKSPACE}/logs/tmp.txt >> ${WORKSPACE}/logs/project_${project_version}.txt"
+                        sh "echo '\n' >> ${WORKSPACE}/logs/project_${project_version}.txt"
                     }
 
                     dir("jenkins-demo-2/") {
                         sh "npm install"
-                        sh "echo 'h3. Jenkinsdemo2 v.${jenkinsdemo2_version}' >> ${WORKSPACE}/logs/project_${env.project_version}.txt"
-                        sh "echo '\n' >> ${WORKSPACE}/logs/project_${env.project_version}.txt"
+                        sh "echo 'h3. Jenkinsdemo2 v.${jenkinsdemo2_version}' >> ${WORKSPACE}/logs/project_${project_version}.txt"
+                        sh "echo '\n' >> ${WORKSPACE}/logs/project_${project_version}.txt"
                         sh "npm audit > ${WORKSPACE}/logs/tmp.txt || true"
                         sh "sed -i '1,2d' ${WORKSPACE}/logs/tmp.txt"
-                        sh "head -n -8 ${WORKSPACE}/logs/tmp.txt >> ${WORKSPACE}/logs/project_${env.project_version}.txt"
-                        sh "echo '\n' >> ${WORKSPACE}/logs/project_${env.project_version}.txt"
+                        sh "head -n -8 ${WORKSPACE}/logs/tmp.txt >> ${WORKSPACE}/logs/project_${project_version}.txt"
+                        sh "echo '\n' >> ${WORKSPACE}/logs/project_${project_version}.txt"
                     }
 
                     dir("jenkins-demo-3/mysecondapp/src/") {
                         sh "npm install"
-                        sh "echo 'h3. Jenkinsdemo3 v.${jenkinsdemo3_version}' >> ${WORKSPACE}/logs/project_${env.project_version}.txt"
-                        sh "echo '\n' >> ${WORKSPACE}/logs/project_${env.project_version}.txt"
+                        sh "echo 'h3. Jenkinsdemo3 v.${jenkinsdemo3_version}' >> ${WORKSPACE}/logs/project_${project_version}.txt"
+                        sh "echo '\n' >> ${WORKSPACE}/logs/project_${project_version}.txt"
                         sh "npm audit > ${WORKSPACE}/logs/tmp.txt || true"
                         sh "sed -i '1,2d' ${WORKSPACE}/logs/tmp.txt"
-                        sh "head -n -8 ${WORKSPACE}/logs/tmp.txt >> ${WORKSPACE}/logs/project_${env.project_version}.txt"
-                        sh "echo '\n' >> ${WORKSPACE}/logs/project_${env.project_version}.txt"
+                        sh "head -n -8 ${WORKSPACE}/logs/tmp.txt >> ${WORKSPACE}/logs/project_${project_version}.txt"
+                        sh "echo '\n' >> ${WORKSPACE}/logs/project_${project_version}.txt"
                     }
                 }
             }
