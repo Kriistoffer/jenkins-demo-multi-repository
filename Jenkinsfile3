@@ -30,7 +30,7 @@ pipeline {
 
                     yamlfile = readYaml file: 'jenkins-demo-2/data.yaml'
 
-                    if (env.demo1_commit != null || env.demo1_commit != "") {
+                    if (!env.demo1_commit == "") {
                         dir("jenkins-demo-2") {
                             sh "git checkout ${env.demo1_commit}"
 
