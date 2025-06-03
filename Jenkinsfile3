@@ -28,6 +28,13 @@ pipeline {
                     }
 
                     yamlfile = readYaml file: 'jenkins-demo-2/data.yaml'
+
+                    dir("jenkins-demo-2") {
+                        sh "git checkout 'e19a4b624fb9a7b5f85c580a03defc4bc85ba1ac'"
+
+                        sh "git status"
+                        sh "git branch"
+                    }
                 }
             }
         }
