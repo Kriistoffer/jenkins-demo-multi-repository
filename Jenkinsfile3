@@ -59,7 +59,7 @@ pipeline {
                     dir("jenkins-demo/myapp/") {
                         sh "npm install"
                         createComponentHeader("Jenkinsdemo v.${jenkinsdemo_version}", "project_${project_version}.txt")
-                        sh "npm list > ${WORKSPACE}/logs/project_${project_version}.txt"
+                        sh "npm list >> ${WORKSPACE}/logs/project_${project_version}.txt"
                         // sh "sed -i '1,2d' ${WORKSPACE}/logs/tmp.txt"
                         // sh "head -n -8 ${WORKSPACE}/logs/tmp.txt >> ${WORKSPACE}/logs/project_${project_version}.txt"
                         // sh "echo '\n' >> ${WORKSPACE}/logs/project_${project_version}.txt"
@@ -111,6 +111,6 @@ def createAppHeader(String title, String output_file) {
 }
 
 def createComponentHeader(String title, String output_file) {
-    sh "echo 'h3. ${title}' >> ${WORKSPACE}/logs${output_file}"
+    sh "echo 'h3. ${title}' >> ${WORKSPACE}/logs/${output_file}"
     sh "echo '\n' >> ${WORKSPACE}/logs/${output_file}"
 }
