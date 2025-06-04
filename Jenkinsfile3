@@ -107,10 +107,10 @@ pipeline {
 
 def createAppHeader(String title, String output_file) {
     sh "echo 'h1. ${title}' >> ${WORKSPACE}/logs/${output_file}"
-    sh "echo '\n' >> ${WORKSPACE}/logs/project_${project_version}.txt"
+    sh "echo '\n' >> ${WORKSPACE}/logs/${output_file}"
 }
 
 def createComponentHeader(String title, String output_file) {
     sh "echo 'h3. ${title}' >> ${WORKSPACE}/logs${output_file}"
-    sh "echo '\n' >> ${WORKSPACE}/logs/project_${project_version}.txt"
+    sh "echo '\n' >> ${WORKSPACE}/logs/${output_file}"
 }
